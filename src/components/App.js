@@ -4,11 +4,12 @@ import {authService} from "fbase";
 function App() {
   const[init, setInit] = useState(false);
   const [isLoggedin, setIsLoggedIn] = useState(false);
-
-  useEffect(()=>{
+  const [userObject,setUserObject] = useState(null);
+    useEffect(()=>{
     authService.onAuthStateChanged((user)=>{
       if(user){
         setIsLoggedIn(true);
+        setUserObject(user);
       }else{
         setIsLoggedIn(false);
       }
@@ -18,7 +19,7 @@ function App() {
 
   return (
       <>
-      {init? <AppRouter isLoggedin={isLoggedin}/> : "Initializing..."}
+      {init? <AppRouter isLoggedin={isLoggedin} userObj = {userObject}/> : "Initializing..."}
       <footer>&copy; Nwitter {new Date().getFullYear()}</footer>
       </>
 
