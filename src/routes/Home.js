@@ -5,6 +5,7 @@ import Nweet from "components/Nweet";
 const Home = ({userObj})=> {
     const [nweet, setNweet] = useState("");
     const [nweets, setNweets] = useState([]);
+    const [attatchment, setAttatchment] = useState();
     
     // const getNweets = async() =>{
     //     const dbNweets = await dbService.collection("nweets").get(); 
@@ -44,14 +45,26 @@ const Home = ({userObj})=> {
         const {target:{files}} = event;
         const theFile = files[0];
         const reader = new FileReader();
+        reader.onloadend = (finishedEvent) => {
+            const {currentTarget: {result}} = finishedEvent;
+            setAttatchment(result);
+        }
         reader.readAsDataURL(theFile);
 
     }
+
+    const onClearAttatchmentClick = () => setAttatchment(null);
+
     return  <div>
     <form onSubmit = {onSubmit}> 
         <input type="text" value={nweet} placeholder="What's on your mind?" maxLength ={120} onChange = {onChange}/>
         <input type="file" accept="image/*" onChange = {onFileChange}/>
         <input type="submit" value="Nweet"/>
+        {attatchment && 
+        <div>
+            <img src={attatchment} width="50px" height="50px" alt="your img"/>
+            <button onClick = {onClearAttatchmentClick}>Clear</button>
+        </div>}
     </form>
     <div>
         {nweets.map( nweet => (
