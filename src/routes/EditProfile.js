@@ -1,3 +1,3 @@
 import React from "react"
 
-export default ()=><soan>EditProfile</soan>
+export default ()=><span>EditProfile</span>
