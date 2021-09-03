@@ -9,7 +9,6 @@ function App() {
     authService.onAuthStateChanged((user)=>{
       if(user){
         setIsLoggedIn(true);
-        console.log(user)
         setUserObject(
            {
            displayName: user.displayName,
@@ -19,8 +18,10 @@ function App() {
         );
       }else{
         setIsLoggedIn(false);
+        setUserObject(null);
       }
       setInit(true);
+      refreshUser();
     });
   },[]);
 
