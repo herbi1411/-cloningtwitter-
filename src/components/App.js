@@ -9,17 +9,32 @@ function App() {
     authService.onAuthStateChanged((user)=>{
       if(user){
         setIsLoggedIn(true);
-        setUserObject(user);
+        console.log(user)
+        setUserObject(
+           {
+           displayName: user.displayName,
+           uid: user.uid,
+           updateProfile: (args) => user.updateProfile(args)
+           }
+        );
       }else{
         setIsLoggedIn(false);
       }
       setInit(true);
     });
-  });
+  },[]);
 
+  const refreshUser = () =>{
+    const user = authService.currentUser;
+    setUserObject({
+      displayName: user.displayName,
+      uid: user.uid,
+      updateProfile: (args) => user.updateProfile(args)
+    });
+  }
   return (
       <>
-      {init? <AppRouter isLoggedin={isLoggedin} userObj = {userObject}/> : "Initializing..."}
+      {init? <AppRouter refreshUser = {refreshUser} isLoggedin={isLoggedin} userObj = {userObject}/> : "Initializing..."}
       <footer>&copy; Nwitter {new Date().getFullYear()}</footer>
       </>
 

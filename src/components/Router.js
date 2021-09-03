@@ -5,7 +5,7 @@ import Home from "../routes/Home";
 import Navigation from "components/Navigation";
 import Profile from "routes/Profile";
 
-const AppRouter = ({isLoggedin, userObj})=>{
+const AppRouter = ({refreshUser, isLoggedin, userObj})=>{
     return <Router>
         {isLoggedin && <Navigation userObj = {userObj}/>}
         <Switch>
@@ -15,7 +15,7 @@ const AppRouter = ({isLoggedin, userObj})=>{
                 <Home userObj = {userObj}/>
             </Route>
             <Route exact path = "/profile">
-                <Profile userObj = {userObj}/>
+                <Profile userObj = {userObj} refreshUser = {refreshUser}/>
             </Route>
             </>
              : <Route exact path = "/"><Auth /></Route>}
