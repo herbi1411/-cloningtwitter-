@@ -7,7 +7,7 @@ import Profile from "routes/Profile";
 
 const AppRouter = ({isLoggedin, userObj})=>{
     return <Router>
-        {isLoggedin && <Navigation />}
+        {isLoggedin && <Navigation userObj = {userObj}/>}
         <Switch>
             {isLoggedin ? 
             <>
